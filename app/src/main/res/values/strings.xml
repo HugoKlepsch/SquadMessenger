@@ -3,4 +3,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="appInfo">App Info</string>
+    <string name="editTextHint">Enter your message here!</string>
+    <string name="closeButt">Close</string>
+    <string name="submitButt">Submit / save</string>
 </resources>
