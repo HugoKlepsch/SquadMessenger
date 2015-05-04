@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -14,9 +15,9 @@ public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.hugra.squadmessenger.MESSAGE";
 
     public void sendMessage(View v){
-//        System.out.println("Inside closeApp");
-//        Log.d("Swag", "Inside closeApp log.d");
-////        System.exit(0);
+        System.out.println("Inside closeApp");
+        Log.d("Swag", "Inside closeApp log.d");
+//        System.exit(0);
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
         String message = editText.getText().toString();
@@ -24,10 +25,26 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void closeApp(View v){
+        System.exit(0);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.closeButt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeApp(v);
+            }
+        });
+        findViewById(R.id.submitButt).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendMessage(v);
+            }
+        });
     }
 
     @Override

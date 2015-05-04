@@ -9,16 +9,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mainLabel"/>
-    <Button
+    <AnalogClock
+        android:clickable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/closeButt"
-        android:onClick="sendMessage"/>
-    <!--<AnalogClock-->
-        <!--android:clickable="true"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/analogClock"/>-->
+        android:id="@+id/analogClock"/>
 
     <EditText
         android:id="@+id/mainActivity_editText"
@@ -26,31 +21,24 @@
 
         android:layout_height="wrap_content"
         android:hint="@string/editTextHint"/>
-    <!--<Button-->
-        <!--android:id="@+id/closeButtNew"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:onClick="sendMessage"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/closeButt"/>-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="horizontal">-->
-        <!--<Button-->
-            <!--android:id="@+id/closeButt"-->
-            <!--style="?android:borderlessButtonStyle"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:onClick="sendMessage"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/closeButt"/>-->
-        <!--<Button-->
-            <!--android:id="@+id/submitButt"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--style="?android:borderlessButtonStyle"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/submitButt"/>-->
-    <!--</LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/closeButt"
+            style="?android:borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/closeButt"/>
+        <Button
+            android:id="@+id/submitButt"
+            android:layout_width="wrap_content"
+            style="?android:borderlessButtonStyle"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/submitButt"/>
+    </LinearLayout>
 
 </LinearLayout>
