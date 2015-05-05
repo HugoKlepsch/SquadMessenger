@@ -2,8 +2,12 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context="hugra.squadmessenger.LoginToServer">
-    <item android:id="@+id/loginToMain"
+      <item android:id="@+id/loginToMain"
           android:title="@string/menSpinMainActivity"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+      <item android:id="@+id/appInfo"
+            android:title="@string/appInfo"
+            android:orderInCategory="150"
+            app:showAsAction="never"/>
 </menu>

@@ -33,6 +33,8 @@ public class LoginToServer extends ActionBarActivity {
         if (id == R.id.loginToMain) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        } else if (id == R.id.appInfo) {
+            startActivity(new Intent(this, AppInfo.class));
         }
 
         return super.onOptionsItemSelected(item);
