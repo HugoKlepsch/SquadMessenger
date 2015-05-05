@@ -10,4 +10,6 @@
     <string name="swapEnabled">Swap Enabled</string>
     <string name="title_activity_app_info">AppInfo</string>
     <string name="gravityButt">Change justification</string>
+    <string name="title_activity_login_to_server">LoginToServer</string>
+    <string name="action_settings">Settings</string>
 </resources>
