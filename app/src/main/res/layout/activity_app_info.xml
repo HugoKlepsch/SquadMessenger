@@ -11,6 +11,7 @@
 
     <TextView
         android:id="@+id/appInfoMainTopLabel"
+        android:textSize="36dp"
         android:text="@string/hello_world"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
