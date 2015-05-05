@@ -6,6 +6,7 @@
     <string name="editTextHint">Enter your message here!</string>
     <string name="closeButt">Close</string>
     <string name="submitButt">Submit / save</string>
-    <string name="title_activity_display_message">DisplayMessageActivity</string>
+    <string name="title_activity_display_message">Look Me</string>
     <string name="action_settings">Settings</string>
+    <string name="swapEnabled">Swap Enabled</string>
 </resources>
