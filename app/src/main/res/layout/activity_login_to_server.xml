@@ -15,43 +15,54 @@
         android:textSize="36dp"
         android:text="@string/loginTitle"/>
     <EditText
+        android:id="@+id/loginUname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginUNHelp"/>
     <EditText
+        android:id="@+id/loginPW"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginPasswdHelp"/>
     <EditText
+        android:id="@+id/loginIP"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginIPHelp"/>
     <EditText
+        android:id="@+id/loginPort"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginPortHelp"/>
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <Button
+            android:id="@+id/loginLoginButt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="1000"
+            android:onClick="login"
             android:text="@string/loginLoginButtText"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.1"
             android:orientation="horizontal">
             <Button
+                android:id="@+id/loginPingButt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="pingServer"
                 android:text="@string/loginPingButtText"/>
             <ImageView
+                android:id="@+id/loginPingImg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"/>
+                android:layout_weight="1"
+                android:src="@drawable/ping_unknown"/>
         </LinearLayout>
 
     </LinearLayout>
