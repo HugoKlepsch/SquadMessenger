@@ -63,7 +63,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.appInfo) {
-            return true;
+            Intent intent = new Intent(this, AppInfo.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

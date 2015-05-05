@@ -9,4 +9,6 @@
     <string name="title_activity_display_message">Look Me</string>
     <string name="action_settings">Settings</string>
     <string name="swapEnabled">Swap Enabled</string>
+    <string name="title_activity_app_info">AppInfo</string>
+    <string name="gravityButt">Change gravity</string>
 </resources>

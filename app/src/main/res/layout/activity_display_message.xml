@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"/>
     <Button
         android:layout_width="wrap_content"
+        style="@android:style/Widget.Material.Button.Borderless"
         android:layout_height="wrap_content"
         android:text="@string/swapEnabled"
         android:onClick="swapEnabled"/>
