@@ -2,6 +2,7 @@ package hugra.squadmessenger;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -86,7 +90,7 @@ public class LoginToServer extends ActionBarActivity {
 
     public void pingServer(View view){
         Log.d("debug", "in pingServer");
-        testConnectivity runer = new testConnectivity();
+        testConnectivity runer = new testConnectivity(ipET);
         runer.start();
     }
 
@@ -96,17 +100,63 @@ public class LoginToServer extends ActionBarActivity {
 }
 
 class testConnectivity extends Thread {
-    public void run(){
-//        InetAddress tester = new InetAddress().getAddress(new byte[]{127, 0, 0, 1});
-//        tester.isReachable(234);
+    EditText ipEt;
 
-        for (int i = 0; i < 5; i++) {
+    public testConnectivity(EditText ipET){
+        this.ipEt = ipET;
+    }
+
+    public void run(){
+        for (int i = 0; i < 1; i++) {
             try {
-                Log.d("debug", "Inside the run method. ");
+                ping(ipEt.getText().toString());
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void ping(String url){
+        int count = 0;
+        String str = "";
+//        Log.d("debug", url);
+        try {
+            Process process;
+            if(Build.VERSION.SDK_INT <= 16) {
+                // shiny APIS
+                process = Runtime.getRuntime().exec("/system/bin/ping -w 1 -c 1 " + url);
+            }
+            else{
+                String options = "-c 1 -Q ";
+                Log.d("debug", url);
+                process = new ProcessBuilder().command("/system/bin/ping", options, url)
+                        .redirectErrorStream(true).start();
+            }
+            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+            StringBuilder output = new StringBuilder();
+            String temp;
+
+            while ( (temp = reader.readLine()) != null) {
+                output.append(temp);
+                count++;
+                Log.d("debug", temp);
+            }
+
+            reader.close();
+
+
+            if(count > 0) {
+                str = output.toString();
+            }
+
+            process.destroy();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Log.i("PING Count", ""+count);
+        Log.i("PING String", str);
     }
 }
