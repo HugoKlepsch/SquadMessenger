@@ -2,6 +2,7 @@ package hugra.squadmessenger;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import java.util.regex.Pattern;
 
 public class LoginToServer extends ActionBarActivity {
     EditText ipET;
+    ImageView img;
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
@@ -61,6 +64,7 @@ public class LoginToServer extends ActionBarActivity {
                 }
             }
         });
+        img = (ImageView) findViewById(R.id.loginPingImg);
     }
 
     @Override
@@ -89,9 +93,13 @@ public class LoginToServer extends ActionBarActivity {
     }
 
     public void pingServer(View view){
+        img.setImageResource(R.drawable.ping_loading);
         Log.d("debug", "in pingServer");
-        testConnectivity runer = new testConnectivity(ipET);
-        runer.start();
+        testConnectivity runer = new testConnectivity();
+        runer.execute(String.valueOf(ipET.getText()));
+
+
+
     }
 
     public void login(View view){
@@ -99,25 +107,42 @@ public class LoginToServer extends ActionBarActivity {
     }
 }
 
-class testConnectivity extends Thread {
-    EditText ipEt;
+class testConnectivity extends AsyncTask<String, String, float> {
+    float pingMilis;
+    @Override
+    protected void onPreExecute() {
+        // Runs on UI thread- Any code you wants
+        // to execute before web service call. Put it here.
+        // Eg show progress dialog
+    }
+    @Override
+    protected float doInBackground(String... params) {
+        // Runs in background thread
+        pingMilis = ping(params[0]);//your web service request;
 
-    public testConnectivity(EditText ipET){
-        this.ipEt = ipET;
+        return pingMilis;
     }
 
-    public void run(){
-        for (int i = 0; i < 1; i++) {
-            try {
-                ping(ipEt.getText().toString());
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    @Override
+    protected void onPostExecute(String resp) {
+
+        // runs in UI thread - You may do what you want with response
+        // Eg Cancel progress dialog - Use result
+
+        if (pingMilis < 50){
+            img.setImageResource(R.drawable.ping_great);
+        } else if (pingMilis > 50 && pingMilis < 300){
+            img.setImageResource(R.drawable.ping_good);
+        } else if (pingMilis > 300) {
+            img.setImageResource(R.drawable.ping_bad);
+        } else {
+            img.setImageResource(R.drawable.ping_failed);
         }
     }
 
-    private void ping(String url){
+
+    private float ping(String url){
+
         int count = 0;
         String str = "";
 //        Log.d("debug", url);
@@ -141,7 +166,7 @@ class testConnectivity extends Thread {
             while ( (temp = reader.readLine()) != null) {
                 output.append(temp);
                 count++;
-                Log.d("debug", temp);
+//                Log.d("debug", temp);
             }
 
             reader.close();
@@ -156,7 +181,89 @@ class testConnectivity extends Thread {
             e.printStackTrace();
         }
 
-        Log.i("PING Count", ""+count);
-        Log.i("PING String", str);
+
+        String delimiter1 = "=";
+
+        String timeStr = str.split(delimiter1)[3];
+        timeStr = timeStr.split(" ms")[0];
+        float pingMilis = Float.parseFloat(timeStr);
+        Log.i("PING ", String.valueOf(pingMilis));
+
+        return pingMilis;
     }
 }
+
+//class testConnectivity extends Thread {
+//    EditText ipEt;
+//    private float pingMilis;
+//    private boolean isReady;
+//
+//    public testConnectivity(EditText ipET){
+//        this.ipEt = ipET;
+//    }
+//
+//    public void run(){
+//        isReady = false;
+//        pingMilis = ping(ipEt.getText().toString());
+//        isReady = true;
+//    }
+//
+//    public boolean isReady(){
+//        return isReady;
+//    }
+//
+//    public float getMilis(){
+//        return pingMilis;
+//    }
+//
+//    private float ping(String url){
+//
+//        int count = 0;
+//        String str = "";
+////        Log.d("debug", url);
+//        try {
+//            Process process;
+//            if(Build.VERSION.SDK_INT <= 16) {
+//                // shiny APIS
+//                process = Runtime.getRuntime().exec("/system/bin/ping -w 1 -c 1 " + url);
+//            }
+//            else{
+//                String options = "-c 1 -Q ";
+//                Log.d("debug", url);
+//                process = new ProcessBuilder().command("/system/bin/ping", options, url)
+//                        .redirectErrorStream(true).start();
+//            }
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//            StringBuilder output = new StringBuilder();
+//            String temp;
+//
+//            while ( (temp = reader.readLine()) != null) {
+//                output.append(temp);
+//                count++;
+////                Log.d("debug", temp);
+//            }
+//
+//            reader.close();
+//
+//
+//            if(count > 0) {
+//                str = output.toString();
+//            }
+//
+//            process.destroy();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        String delimiter1 = "=";
+//
+//        String timeStr = str.split(delimiter1)[3];
+//        timeStr = timeStr.split(" ms")[0];
+//        float pingMilis = Float.parseFloat(timeStr);
+//        Log.i("PING ", String.valueOf(pingMilis));
+//
+//        return pingMilis;
+//    }
+//}
