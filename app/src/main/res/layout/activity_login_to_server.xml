@@ -21,16 +21,19 @@
         android:hint="@string/loginUNHelp"/>
     <EditText
         android:id="@+id/loginPW"
+        android:inputType="textPassword"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginPasswdHelp"/>
     <EditText
         android:id="@+id/loginIP"
+        android:inputType="phone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginIPHelp"/>
     <EditText
         android:id="@+id/loginPort"
+        android:inputType="numberDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginPortHelp"/>
@@ -44,19 +47,21 @@
             android:layout_height="wrap_content"
             android:layout_weight="1000"
             android:onClick="login"
+            style="?android:borderlessButtonStyle"
             android:text="@string/loginLoginButtText"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/loginPingButt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                style="?android:borderlessButtonStyle"
                 android:onClick="pingServer"
-                android:text="@string/loginPingButtText"/>
+                android:text="@string/loginPingButtText"
+                />
             <ImageView
                 android:id="@+id/loginPingImg"
                 android:layout_width="wrap_content"

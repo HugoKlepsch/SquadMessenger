@@ -8,4 +8,6 @@
     <string name="loginPortHelp">port</string>
     <string name="loginLoginButtText">Login</string>
     <string name="loginPingButtText">Ping Server</string>
+    <color name="badIPColor">#FF0000</color>
+    <color name="goodIPColor">#000000</color>
 </resources>
