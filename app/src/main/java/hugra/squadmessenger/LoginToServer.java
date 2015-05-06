@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
@@ -107,39 +108,39 @@ public class LoginToServer extends ActionBarActivity {
     }
 }
 
-class testConnectivity extends AsyncTask<String, String, float> {
+class testConnectivity extends AsyncTask<String, Void, String> {
     float pingMilis;
+    ImageView img;
+
     @Override
-    protected void onPreExecute() {
-        // Runs on UI thread- Any code you wants
-        // to execute before web service call. Put it here.
-        // Eg show progress dialog
-    }
-    @Override
-    protected float doInBackground(String... params) {
+    protected String doInBackground(String... params) {
+        Log.d("bigbug", "In doInBackground");
         // Runs in background thread
         pingMilis = ping(params[0]);//your web service request;
 
-        return pingMilis;
+
+        return String.valueOf(pingMilis);
     }
-
     @Override
-    protected void onPostExecute(String resp) {
-
-        // runs in UI thread - You may do what you want with response
+    protected void onPostExecute(String params) {
+        Log.d("bigbug", "In onPostExecute");
+        float pingMilis = Float.parseFloat(params);
+//        img = (ImageView) findViewById(R.id.loginPingImg);
+        super.onPostExecute(params);
+        // runs in UI thread - You may do what you want with
+        // response
         // Eg Cancel progress dialog - Use result
 
-        if (pingMilis < 50){
-            img.setImageResource(R.drawable.ping_great);
-        } else if (pingMilis > 50 && pingMilis < 300){
-            img.setImageResource(R.drawable.ping_good);
-        } else if (pingMilis > 300) {
-            img.setImageResource(R.drawable.ping_bad);
-        } else {
-            img.setImageResource(R.drawable.ping_failed);
-        }
+//        if (pingMilis < 20){
+//            img.setImageResource(R.drawable.ping_great);
+//        } else if (pingMilis > 20 && pingMilis < 150){
+//            img.setImageResource(R.drawable.ping_good);
+//        } else if (pingMilis > 150) {
+//            img.setImageResource(R.drawable.ping_bad);
+//        } else {
+//            img.setImageResource(R.drawable.ping_failed);
+//        }
     }
-
 
     private float ping(String url){
 
@@ -153,7 +154,7 @@ class testConnectivity extends AsyncTask<String, String, float> {
                 process = Runtime.getRuntime().exec("/system/bin/ping -w 1 -c 1 " + url);
             }
             else{
-                String options = "-c 1 -Q ";
+                String options = "-w 1 -c 1 -Q ";
                 Log.d("debug", url);
                 process = new ProcessBuilder().command("/system/bin/ping", options, url)
                         .redirectErrorStream(true).start();
@@ -181,15 +182,20 @@ class testConnectivity extends AsyncTask<String, String, float> {
             e.printStackTrace();
         }
 
+        Log.d("Length of str: ", String.valueOf(str.length()));
+        if (str.length() > 200) {
+            String delimiter1 = "=";
 
-        String delimiter1 = "=";
+            String timeStr = str.split(delimiter1)[3];
+            timeStr = timeStr.split(" ms")[0];
+            float pingMilis = Float.parseFloat(timeStr);
+            Log.i("PING ", String.valueOf(pingMilis));
 
-        String timeStr = str.split(delimiter1)[3];
-        timeStr = timeStr.split(" ms")[0];
-        float pingMilis = Float.parseFloat(timeStr);
-        Log.i("PING ", String.valueOf(pingMilis));
-
-        return pingMilis;
+            return pingMilis;
+        } else {
+            return (float) -1;
+        }
+//        return (float) 10;
     }
 }
 
