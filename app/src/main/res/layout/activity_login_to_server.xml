@@ -71,4 +71,12 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/loginPingText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:textSize="24dp"
+        android:text="@string/loginPingText"/>
 </LinearLayout>

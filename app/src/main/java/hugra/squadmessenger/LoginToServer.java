@@ -1,6 +1,8 @@
 package hugra.squadmessenger;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +27,7 @@ import java.util.regex.Pattern;
 public class LoginToServer extends ActionBarActivity {
     EditText ipET;
     static ImageView img;
+    static TextView pingText;
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
@@ -63,6 +67,7 @@ public class LoginToServer extends ActionBarActivity {
             }
         });
         img = (ImageView) findViewById(R.id.loginPingImg);
+        pingText = (TextView) findViewById(R.id.loginPingText);
     }
 
     @Override
@@ -101,8 +106,9 @@ public class LoginToServer extends ActionBarActivity {
     }
 
     public static void updateConnectivityStatus(float ping){
-        if (ping < 20){
+        if (ping < 20 && ping > 0){
             img.setImageResource(R.drawable.ping_great);
+
         } else if (ping > 20 && ping < 150){
             img.setImageResource(R.drawable.ping_good);
         } else if (ping > 150) {
@@ -110,6 +116,7 @@ public class LoginToServer extends ActionBarActivity {
         } else {
             img.setImageResource(R.drawable.ping_failed);
         }
+        pingText.setText("Ping: " + ping);
     }
 
 
