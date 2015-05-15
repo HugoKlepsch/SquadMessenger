@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class LoginToServer extends ActionBarActivity {
     EditText ipET;
     static ImageView img;
     static TextView pingText;
+    static Button pingServerButt;
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
@@ -60,14 +62,18 @@ public class LoginToServer extends ActionBarActivity {
                 if (ipMatcher.matches()) { //if it is a valid ip
                     ipET.setAlpha((float) 1.0);
                     ipET.setTextColor(getResources().getColor(R.color.goodIPColor));
+                    pingServerButt.setEnabled(true);
                 } else { //if not
                     ipET.setAlpha((float) 0.5);
                     ipET.setTextColor(getResources().getColor(R.color.badIPColor));
+                    pingServerButt.setEnabled(false);
                 }
             }
         });
         img = (ImageView) findViewById(R.id.loginPingImg);
         pingText = (TextView) findViewById(R.id.loginPingText);
+        pingServerButt = (Button) findViewById(R.id.loginPingButt);
+        pingServerButt.setEnabled(false);
     }
 
     @Override
@@ -100,9 +106,6 @@ public class LoginToServer extends ActionBarActivity {
         Log.d("debug", "in pingServer");
         testConnectivity runer = new testConnectivity();
         runer.execute(String.valueOf(ipET.getText()));
-
-
-
     }
 
     public static void updateConnectivityStatus(float ping){
@@ -175,7 +178,6 @@ class testConnectivity extends AsyncTask<String, Void, String> {
             while ( (temp = reader.readLine()) != null) {
                 output.append(temp);
                 count++;
-//                Log.d("debug", temp);
             }
 
             reader.close();
@@ -207,77 +209,3 @@ class testConnectivity extends AsyncTask<String, Void, String> {
     }
 }
 
-//class testConnectivity extends Thread {
-//    EditText ipEt;
-//    private float pingMilis;
-//    private boolean isReady;
-//
-//    public testConnectivity(EditText ipET){
-//        this.ipEt = ipET;
-//    }
-//
-//    public void run(){
-//        isReady = false;
-//        pingMilis = ping(ipEt.getText().toString());
-//        isReady = true;
-//    }
-//
-//    public boolean isReady(){
-//        return isReady;
-//    }
-//
-//    public float getMilis(){
-//        return pingMilis;
-//    }
-//
-//    private float ping(String url){
-//
-//        int count = 0;
-//        String str = "";
-////        Log.d("debug", url);
-//        try {
-//            Process process;
-//            if(Build.VERSION.SDK_INT <= 16) {
-//                // shiny APIS
-//                process = Runtime.getRuntime().exec("/system/bin/ping -w 1 -c 1 " + url);
-//            }
-//            else{
-//                String options = "-c 1 -Q ";
-//                Log.d("debug", url);
-//                process = new ProcessBuilder().command("/system/bin/ping", options, url)
-//                        .redirectErrorStream(true).start();
-//            }
-//            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-//
-//            StringBuilder output = new StringBuilder();
-//            String temp;
-//
-//            while ( (temp = reader.readLine()) != null) {
-//                output.append(temp);
-//                count++;
-////                Log.d("debug", temp);
-//            }
-//
-//            reader.close();
-//
-//
-//            if(count > 0) {
-//                str = output.toString();
-//            }
-//
-//            process.destroy();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//
-//        String delimiter1 = "=";
-//
-//        String timeStr = str.split(delimiter1)[3];
-//        timeStr = timeStr.split(" ms")[0];
-//        float pingMilis = Float.parseFloat(timeStr);
-//        Log.i("PING ", String.valueOf(pingMilis));
-//
-//        return pingMilis;
-//    }
-//}
