@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
 
 public class LoginToServer extends ActionBarActivity {
     EditText ipET;
-    ImageView img;
+    static ImageView img;
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
@@ -100,7 +100,7 @@ public class LoginToServer extends ActionBarActivity {
 
     }
 
-    public void updateConnectivityStatus(float ping){
+    public static void updateConnectivityStatus(float ping){
         if (ping < 20){
             img.setImageResource(R.drawable.ping_great);
         } else if (ping > 20 && ping < 150){
