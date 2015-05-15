@@ -1,7 +1,6 @@
 package hugra.squadmessenger;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -12,14 +11,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -103,6 +100,19 @@ public class LoginToServer extends ActionBarActivity {
 
     }
 
+    public void updateConnectivityStatus(float ping){
+        if (ping < 20){
+            img.setImageResource(R.drawable.ping_great);
+        } else if (ping > 20 && ping < 150){
+            img.setImageResource(R.drawable.ping_good);
+        } else if (ping > 150) {
+            img.setImageResource(R.drawable.ping_bad);
+        } else {
+            img.setImageResource(R.drawable.ping_failed);
+        }
+    }
+
+
     public void login(View view){
         Log.d("debug", "in login");
     }
@@ -125,21 +135,12 @@ class testConnectivity extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String params) {
         Log.d("bigbug", "In onPostExecute");
         float pingMilis = Float.parseFloat(params);
-//        img = (ImageView) findViewById(R.id.loginPingImg);
-        super.onPostExecute(params);
+        LoginToServer.updateConnectivityStatus(pingMilis);
         // runs in UI thread - You may do what you want with
         // response
         // Eg Cancel progress dialog - Use result
 
-//        if (pingMilis < 20){
-//            img.setImageResource(R.drawable.ping_great);
-//        } else if (pingMilis > 20 && pingMilis < 150){
-//            img.setImageResource(R.drawable.ping_good);
-//        } else if (pingMilis > 150) {
-//            img.setImageResource(R.drawable.ping_bad);
-//        } else {
-//            img.setImageResource(R.drawable.ping_failed);
-//        }
+
     }
 
     private float ping(String url){
