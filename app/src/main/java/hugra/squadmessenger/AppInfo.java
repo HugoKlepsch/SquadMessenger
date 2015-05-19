@@ -3,16 +3,14 @@ package hugra.squadmessenger;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 
 public class AppInfo extends ActionBarActivity {
-    private final int leftJust = Gravity.LEFT;
+    private final int leftJust = Gravity.START;
     private final int centerJust = Gravity.CENTER;
-    private final int rightJust = Gravity.RIGHT;
+    private final int rightJust = Gravity.END;
     TextView welcomeText;
     private int gravState;
 

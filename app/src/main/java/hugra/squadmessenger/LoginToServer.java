@@ -1,8 +1,6 @@
 package hugra.squadmessenger;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
@@ -130,7 +128,6 @@ public class LoginToServer extends ActionBarActivity {
 
 class testConnectivity extends AsyncTask<String, Void, String> {
     float pingMilis;
-    ImageView img;
 
     @Override
     protected String doInBackground(String... params) {
