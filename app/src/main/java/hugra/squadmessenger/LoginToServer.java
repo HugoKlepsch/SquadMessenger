@@ -24,10 +24,18 @@ import java.util.regex.Pattern;
 
 
 public class LoginToServer extends ActionBarActivity {
-    EditText ipET;
+    EditText loginField;
+    EditText passField;
+    EditText ipEditText;
+    EditText portEditText;
     static ImageView img;
     static TextView pingText;
+    static Button loginServerButt;
     static Button pingServerButt;
+    boolean hasEnteredUname = false;
+    boolean hasEnteredPW = false;
+    boolean hasEnteredIP = false;
+    boolean hasEnteredPort = false;
     private static final Pattern IP_ADDRESS
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
@@ -39,10 +47,11 @@ public class LoginToServer extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_to_server);
-        ipET = (EditText) findViewById(R.id.loginIP);
-        ipET.addTextChangedListener(new TextWatcher() {
+        loginField = (EditText) findViewById(R.id.loginUname);
+        loginField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -50,7 +59,52 @@ public class LoginToServer extends ActionBarActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                Log.d("debug", s.toString());
+                if (!(s.toString().equals(""))) { //if it is not empty string
+                    hasEnteredUname = true;
+                    updateButtons();
+                } else {
+                    hasEnteredUname = false;
+                    updateButtons();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        passField = (EditText) findViewById(R.id.loginPW);
+        passField.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!(s.toString().equals(""))){ //if it is not empty string
+                    hasEnteredPW = true;
+                    updateButtons();
+                } else {
+                    hasEnteredPW = false;
+                    updateButtons();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        ipEditText = (EditText) findViewById(R.id.loginIP);
+        ipEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 ipMatcher = IP_ADDRESS.matcher(s.toString()); //takes the given ip from the
                 // edittext and compares it with the IP_ADDRESS regex.
             }
@@ -58,18 +112,45 @@ public class LoginToServer extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (ipMatcher.matches()) { //if it is a valid ip
-                    ipET.setAlpha((float) 1.0);
-                    ipET.setTextColor(getResources().getColor(R.color.goodIPColor));
-                    pingServerButt.setEnabled(true);
+                    ipEditText.setAlpha((float) 1.0);
+                    ipEditText.setTextColor(getResources().getColor(R.color.goodIPColor));
+                    hasEnteredIP = true;
+                    updateButtons();
                 } else { //if not
-                    ipET.setAlpha((float) 0.5);
-                    ipET.setTextColor(getResources().getColor(R.color.badIPColor));
-                    pingServerButt.setEnabled(false);
+                    ipEditText.setAlpha((float) 0.5);
+                    ipEditText.setTextColor(getResources().getColor(R.color.badIPColor));
+                    hasEnteredIP = false;
+                    updateButtons();
                 }
+            }
+        });
+        portEditText = (EditText) findViewById(R.id.loginPort);
+        portEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!(s.toString().equals(""))) { //if it is not empty string
+                    hasEnteredPort = true;
+                    updateButtons();
+                } else {
+                    hasEnteredPort = false;
+                    updateButtons();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
         img = (ImageView) findViewById(R.id.loginPingImg);
         pingText = (TextView) findViewById(R.id.loginPingText);
+        loginServerButt  = (Button) findViewById(R.id.loginLoginButt);
+        loginServerButt.setEnabled(false);
         pingServerButt = (Button) findViewById(R.id.loginPingButt);
         pingServerButt.setEnabled(false);
     }
@@ -99,11 +180,21 @@ public class LoginToServer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void updateButtons(){
+        if (hasEnteredUname && hasEnteredPW && hasEnteredIP && hasEnteredPort){
+            loginServerButt.setEnabled(true);
+            pingServerButt.setEnabled(true);
+        } else {
+            loginServerButt.setEnabled(false);
+            pingServerButt.setEnabled(false);
+        }
+    }
+
     public void pingServer(View view){
         img.setImageResource(R.drawable.ping_loading);
         Log.d("debug", "in pingServer");
         testConnectivity runer = new testConnectivity();
-        runer.execute(String.valueOf(ipET.getText()));
+        runer.execute(String.valueOf(ipEditText.getText()));
     }
 
     public static void updateConnectivityStatus(float ping){
@@ -122,9 +213,28 @@ public class LoginToServer extends ActionBarActivity {
 
 
     public void login(View view){
+
+        pingServer(view);
+        LoginDeets creds = new LoginDeets(loginField.getText().toString(), passField.getText()
+                .toString());
         Log.d("debug", "in login");
+        Log.d("creds", creds.toString());
     }
 }
+
+class LoginDeets{
+    String userName;
+    String password;
+    public LoginDeets(String userName, String password){
+        this.userName = userName;
+        this.password = password;
+    }
+
+    public String toString(){
+        return "userName: " + userName + " password: " + password;
+    }
+}
+
 
 class testConnectivity extends AsyncTask<String, Void, String> {
     float pingMilis;
