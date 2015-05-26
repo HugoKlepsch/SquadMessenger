@@ -241,18 +241,16 @@ class testConnectivity extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        Log.d("bigbug", "In doInBackground");
         // Runs in background thread
         pingMilis = ping(params[0]);//your web service request;
 
-
-        return String.valueOf(pingMilis);
+        return String.valueOf(pingMilis); //this returns the value to onPostExecute, as a parameter
     }
     @Override
     protected void onPostExecute(String params) {
-        Log.d("bigbug", "In onPostExecute");
         float pingMilis = Float.parseFloat(params);
-        LoginToServer.updateConnectivityStatus(pingMilis);
+        LoginToServer.updateConnectivityStatus(pingMilis); //the ui must be updated in the class
+        // that is originated.
         // runs in UI thread - You may do what you want with
         // response
         // Eg Cancel progress dialog - Use result
@@ -264,7 +262,6 @@ class testConnectivity extends AsyncTask<String, Void, String> {
 
         int count = 0;
         String str = "";
-//        Log.d("debug", url);
         try {
             Process process;
             if(Build.VERSION.SDK_INT <= 16) {
@@ -312,7 +309,6 @@ class testConnectivity extends AsyncTask<String, Void, String> {
         } else {
             return (float) -1;
         }
-//        return (float) 10;
     }
 }
 
