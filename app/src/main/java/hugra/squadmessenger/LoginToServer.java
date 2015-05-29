@@ -1,8 +1,7 @@
 package hugra.squadmessenger;
 
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,9 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,29 +70,29 @@ public class LoginToServer extends ActionBarActivity {
 
             }
         });
-        passField = (EditText) findViewById(R.id.loginPW);
-        passField.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!(s.toString().equals(""))){ //if it is not empty string
-                    hasEnteredPW = true;
-                    updateButtons();
-                } else {
-                    hasEnteredPW = false;
-                    updateButtons();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
+//        passField = (EditText) findViewById(R.id.loginPW);
+//        passField.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                if(!(s.toString().equals(""))){ //if it is not empty string
+//                    hasEnteredPW = true;
+//                    updateButtons();
+//                } else {
+//                    hasEnteredPW = false;
+//                    updateButtons();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//
+//            }
+//        });
         ipEditText = (EditText) findViewById(R.id.loginIP);
         ipEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -193,7 +190,7 @@ public class LoginToServer extends ActionBarActivity {
     public void pingServer(View view){
         img.setImageResource(R.drawable.ping_loading);
         Log.d("debug", "in pingServer");
-        testConnectivity runer = new testConnectivity();
+        TestConnectivity runer = new TestConnectivity();
         runer.execute(String.valueOf(ipEditText.getText()));
     }
 
@@ -222,93 +219,8 @@ public class LoginToServer extends ActionBarActivity {
     }
 }
 
-class LoginDeets{
-    String userName;
-    String password;
-    public LoginDeets(String userName, String password){
-        this.userName = userName;
-        this.password = password;
-    }
-
-    public String toString(){
-        return "userName: " + userName + " password: " + password;
-    }
-}
 
 
-class testConnectivity extends AsyncTask<String, Void, String> {
-    float pingMilis;
-
-    @Override
-    protected String doInBackground(String... params) {
-        // Runs in background thread
-        pingMilis = ping(params[0]);//your web service request;
-
-        return String.valueOf(pingMilis); //this returns the value to onPostExecute, as a parameter
-    }
-    @Override
-    protected void onPostExecute(String params) {
-        float pingMilis = Float.parseFloat(params);
-        LoginToServer.updateConnectivityStatus(pingMilis); //the ui must be updated in the class
-        // that is originated.
-        // runs in UI thread - You may do what you want with
-        // response
-        // Eg Cancel progress dialog - Use result
 
 
-    }
-
-    private float ping(String url){
-
-        int count = 0;
-        String str = "";
-        try {
-            Process process;
-            if(Build.VERSION.SDK_INT <= 16) {
-                // shiny APIS
-                process = Runtime.getRuntime().exec("/system/bin/ping -w 1 -c 1 " + url);
-            }
-            else{
-                String options = "-w 1 -c 1 -Q ";
-                Log.d("debug", url);
-                process = new ProcessBuilder().command("/system/bin/ping", options, url)
-                        .redirectErrorStream(true).start();
-            }
-            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-
-            StringBuilder output = new StringBuilder();
-            String temp;
-
-            while ( (temp = reader.readLine()) != null) {
-                output.append(temp);
-                count++;
-            }
-
-            reader.close();
-
-
-            if(count > 0) {
-                str = output.toString();
-            }
-
-            process.destroy();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Log.d("Length of str: ", String.valueOf(str.length()));
-        if (str.length() > 200) {
-            String delimiter1 = "=";
-
-            String timeStr = str.split(delimiter1)[3];
-            timeStr = timeStr.split(" ms")[0];
-            float pingMilis = Float.parseFloat(timeStr);
-            Log.i("PING ", String.valueOf(pingMilis));
-
-            return pingMilis;
-        } else {
-            return (float) -1;
-        }
-    }
-}
 
