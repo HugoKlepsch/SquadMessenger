@@ -5,7 +5,7 @@
     <string name="loginUNHelp">username</string>
     <string name="loginPasswdHelp">password</string>
     <string name="loginIPHelp">I.P. address</string>
-    <string name="loginPortHelp">port</string>
+    <string name="loginPortHelp">Port (default 6969)</string>
     <string name="loginLoginButtText">Login</string>
     <string name="loginPingButtText">Ping Server</string>
     <color name="badIPColor">#FF0000</color>

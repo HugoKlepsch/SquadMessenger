@@ -19,12 +19,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/loginUNHelp"/>
-    <EditText
-        android:id="@+id/loginPW"
-        android:inputType="textPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/loginPasswdHelp"/>
+
     <EditText
         android:id="@+id/loginIP"
         android:inputType="phone"

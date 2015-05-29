@@ -112,12 +112,12 @@ public class LoginToServer extends ActionBarActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (ipMatcher.matches()) { //if it is a valid ip
-                    ipEditText.setAlpha((float) 1.0);
+//                    ipEditText.setAlpha((float) 1.0);
                     ipEditText.setTextColor(getResources().getColor(R.color.goodIPColor));
                     hasEnteredIP = true;
                     updateButtons();
                 } else { //if not
-                    ipEditText.setAlpha((float) 0.5);
+//                    ipEditText.setAlpha((float) 0.5);
                     ipEditText.setTextColor(getResources().getColor(R.color.badIPColor));
                     hasEnteredIP = false;
                     updateButtons();
