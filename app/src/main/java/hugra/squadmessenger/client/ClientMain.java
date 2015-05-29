@@ -11,11 +11,9 @@ package hugra.squadmessenger.client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import hugra.squadmessenger.sharedPackages.*;
 import java.util.Vector;
 
-import sharedPackages.LoginDeets;
-import sharedPackages.Message;
-import sharedPackages.Queuer;
 
 /**
  * @author hugo
@@ -89,7 +87,7 @@ public class ClientMain {
 	}
 	
 	/**
-	 * @param localIndex the localIndex to set
+	 * @param "localIndex the localIndex to set"
 	 */
 	public static void setLocalIndex(int index, boolean value) {
 		ClientMain.localIndex.set(index, value);
@@ -103,7 +101,7 @@ public class ClientMain {
 	}
 
 	/**
-	 * @param localIndex the localIndex to set
+	 * @param "localIndex the localIndex to set
 	 */
 	public static void setRemoteIndex(int remoteIndex) {
 		ClientMain.remoteIndex = remoteIndex;

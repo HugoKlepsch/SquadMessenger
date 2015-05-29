@@ -11,9 +11,8 @@ package hugra.squadmessenger.client;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import hugra.squadmessenger.sharedPackages.*;
 
-import sharedPackages.ActionRequest;
-import sharedPackages.ActionTypes;
 
 /**
  * @author hugo
