@@ -26,17 +26,10 @@ public class ClientMain {
 	private static boolean stayAlive = true;
 	public static Queuer<Message> messageQueue;
 	
-	/**
-		 * @author hugo
-		 * Date of creation: May 26, 2015 
-		 * @param: None
-		 * @return: None
-	 * @throws IOException 
-		 * @Description: ( ͡° ͜ʖ ͡°)
-		 */
-	public static void main(String[] args) throws IOException {
-		messageQueue = new Queuer<Message>();
-		localIndex = new Vector<Boolean>();
+
+	public ClientMain() throws IOException {
+		messageQueue = new Queuer<>();
+		localIndex = new Vector<>();
 		System.out.println("Enter username to connect as: ");
 		String userName = userIn.readLine();
 		System.out.println("Enter the IP address to connect to: ");
@@ -62,71 +55,45 @@ public class ClientMain {
 	}
 
 	public static void addMessage(Message message){
-		System.out.println(message.getCredentials().getUserName() + ": " + message.getMessage());
+//		System.out.println(message.getCredentials().getUserName() + ": " + message.getMessage());
 	}
-	
-	/**
-	 * @return true if we have the message at that index
-	 */
+
 	public static boolean hasMessage(int index) {
 		return ClientMain.localIndex.get(index);
 	}
 
-	/**
-	 * @return the length of the local message array
-	 */
+
 	public static int getLocalIndexLength(){
 		return ClientMain.localIndex.size();
 	}
 	
-	/**
-	 * @descrip adds an index to the localIndex array, with status false
-	 */
+
 	public static void localIndexAddIndex(){
 		localIndex.addElement(false);
 	}
 	
-	/**
-	 * @param "localIndex the localIndex to set"
-	 */
+
 	public static void setLocalIndex(int index, boolean value) {
 		ClientMain.localIndex.set(index, value);
 	}
 	
-	/**
-	 * @return the localIndex
-	 */
+
 	public static int getRemoteIndex() {
 		return remoteIndex;
 	}
 
-	/**
-	 * @param "localIndex the localIndex to set
-	 */
+
 	public static void setRemoteIndex(int remoteIndex) {
 		ClientMain.remoteIndex = remoteIndex;
 	}
-	
-	public static Vector<Integer> getMissingIndices(){
-		Vector<Integer> missingIndices = new Vector<Integer>();
-		for (int i = 0; i < localIndex.size(); i++) {
-			if(!localIndex.get(i)){
-				missingIndices.add(i);
-			}
-		}
-		return missingIndices;
-	}
 
-	/**
-	 * @return the stayAlive
-	 */
+
+
 	public static boolean StayAlive() {
 		return stayAlive;
 	}
 
-	/**
-	 * @param stayAlive the stayAlive to set
-	 */
+
 	public static void setAlive(boolean stayAlive) {
 		ClientMain.stayAlive = stayAlive;
 	}
