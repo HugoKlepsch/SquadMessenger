@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 
@@ -17,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     public void sendMessage(View v){
         System.out.println("Inside closeApp");
         Log.d("Swag", "Inside closeApp log.d");
-//        System.exit(0);
         Intent intent = new Intent(this, DisplayMessageActivity.class);
         EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
         String message = editText.getText().toString();

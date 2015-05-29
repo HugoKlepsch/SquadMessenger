@@ -4,16 +4,20 @@
                 android:theme="@style/AppTheme"
                 android:orientation="vertical">
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:id="@+id/ScrollingTextview"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/mainLabel"/>
-    <AnalogClock
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/analogClock"/>
+        android:scrollbars="vertical"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/ChatOutput"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"/>
+
+    </ScrollView>
 
     <EditText
         android:id="@+id/mainActivity_editText"
