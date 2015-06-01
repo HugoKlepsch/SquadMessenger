@@ -1,10 +1,9 @@
 package hugra.squadmessenger;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.hugra.squadmessenger.MESSAGE";
     private static TextView chatOutput;
     private static EditText userIn;
