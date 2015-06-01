@@ -30,7 +30,7 @@
     <ScrollView
         android:id="@+id/mainActivity_ScrollingTextview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:scrollbars="vertical"
         android:fillViewport="true"
@@ -39,10 +39,15 @@
 
 
         <TextView
-            android:id="@+id/ChatOutput"
+            android:id="@+id/mainActivity_ChatOutput"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"/>
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="16dp"/>
 
     </ScrollView>
 

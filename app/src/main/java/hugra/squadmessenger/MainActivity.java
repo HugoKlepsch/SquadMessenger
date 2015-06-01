@@ -34,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        chatOutput = (TextView) findViewById(R.id.ChatOutput);
+        chatOutput = (TextView) findViewById(R.id.mainActivity_ChatOutput);
         userIn = (EditText) findViewById(R.id.mainActivity_userIn);
 //        userIn.setOnKeyListener(new View.OnKeyListener() {
 //            @Override
