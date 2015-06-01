@@ -4,21 +4,9 @@
                 android:theme="@style/AppTheme"
                 android:orientation="vertical">
 
-    <ScrollView
-        android:id="@+id/ScrollingTextview"
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:scrollbars="vertical"
-        android:fillViewport="true">
 
-        <TextView
-            android:id="@+id/ChatOutput"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"/>
-
-    </ScrollView>
     <ScrollView
+        android:id="@+id/mainActivity_messageInScroll"
         android:layout_width="fill_parent"
         android:layout_height="130px"
         android:layout_alignParentBottom="true">
@@ -38,6 +26,24 @@
                 android:layout_height="wrap_content"
                 android:text="@string/sendButt"/>
         </LinearLayout>
+    </ScrollView>
+    <ScrollView
+        android:id="@+id/mainActivity_ScrollingTextview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:fillViewport="true"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/mainActivity_messageInScroll">
+
+
+        <TextView
+            android:id="@+id/ChatOutput"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"/>
+
     </ScrollView>
 
 </RelativeLayout>

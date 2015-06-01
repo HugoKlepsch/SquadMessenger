@@ -25,7 +25,7 @@ public class MainActivity extends ActionBarActivity {
 //        String message = editText.getText().toString();
 //        intent.putExtra(EXTRA_MESSAGE, message);
 //        startActivity(intent);
-        chatOutput.append("\n" + userIn.getText());
+        chatOutput.append(userIn.getText() + "\n");
         userIn.setText("");
     }
 
