@@ -7,15 +7,18 @@
 
 
     <LinearLayout
+        android:id="@+id/mainActivity_messageInLayout"
         android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true">
         <ScrollView
             android:id="@+id/mainActivity_messageInScroll"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            android:fillViewport="true">
             <EditText
                 android:id="@+id/mainActivity_userIn"
                 android:layout_width="wrap_content"
@@ -38,7 +41,7 @@
         android:scrollbars="vertical"
         android:fillViewport="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@id/mainActivity_messageInScroll">
+        android:layout_above="@id/mainActivity_messageInLayout">
 
 
         <TextView
