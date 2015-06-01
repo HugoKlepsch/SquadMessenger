@@ -177,13 +177,16 @@ public class LoginToServer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void updateButtons(){
-        if (hasEnteredUname && hasEnteredPW && hasEnteredIP && hasEnteredPort){
-            loginServerButt.setEnabled(true);
+    public void updateButtons() {
+        if (hasEnteredIP){
             pingServerButt.setEnabled(true);
+        } else{
+            pingServerButt.setEnabled(false);
+        }
+        if (hasEnteredUname && hasEnteredPort){
+            loginServerButt.setEnabled(true);
         } else {
             loginServerButt.setEnabled(false);
-            pingServerButt.setEnabled(false);
         }
     }
 
