@@ -4,43 +4,47 @@ import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.hugra.squadmessenger.MESSAGE";
+    private static TextView chatOutput;
+    private static EditText userIn;
 
-    public void sendMessage(View v){
-        System.out.println("Inside closeApp");
-        Log.d("Swag", "Inside closeApp log.d");
-        Intent intent = new Intent(this, DisplayMessageActivity.class);
-        EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
-        String message = editText.getText().toString();
-        intent.putExtra(EXTRA_MESSAGE, message);
-        startActivity(intent);
+    public void sendMessage(){
+//        Intent intent = new Intent(this, DisplayMessageActivity.class);
+//        EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
+//        String message = editText.getText().toString();
+//        intent.putExtra(EXTRA_MESSAGE, message);
+//        startActivity(intent);
+        chatOutput.append(userIn.getText());
+        userIn.getText().clear();
     }
 
-    public void closeApp(View v){
-        System.exit(0);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        findViewById(R.id.closeButt).setOnClickListener(new View.OnClickListener() {
+        chatOutput = (TextView) findViewById(R.id.ChatOutput);
+        userIn = (EditText) findViewById(R.id.mainActivity_userIn);
+        userIn.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
-                closeApp(v);
-            }
-        });
-        findViewById(R.id.submitButt).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage(v);
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN){ //on press down <Button>
+                    switch (keyCode){
+                        case KeyEvent.KEYCODE_ENTER:
+                            Log.d("userin", "keyevent.jeycode_enter");
+                            sendMessage();
+                    }
+                }
+                return false;
             }
         });
     }

@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:theme="@style/AppTheme"
@@ -7,7 +7,7 @@
     <ScrollView
         android:id="@+id/ScrollingTextview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="100dp"
         android:scrollbars="vertical"
         android:fillViewport="true">
 
@@ -18,31 +18,15 @@
             android:layout_weight="1.0"/>
 
     </ScrollView>
-
-    <EditText
-        android:id="@+id/mainActivity_editText"
-        android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
-        android:hint="@string/editTextHint"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/closeButt"
-            style="?android:borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="130px"
+        android:layout_alignParentBottom="true">
+        <EditText
+            android:id="@+id/mainActivity_userIn"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/closeButt"/>
-        <Button
-            android:id="@+id/submitButt"
-            android:layout_width="wrap_content"
-            style="?android:borderlessButtonStyle"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="@string/submitButt"/>
-    </LinearLayout>
+            android:hint="@string/editTextHint" />
+    </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>
