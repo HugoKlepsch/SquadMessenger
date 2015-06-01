@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,7 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class LoginToServer extends ActionBarActivity {
+public class LoginToServer extends AppCompatActivity {
     EditText loginField;
     EditText passField;
     EditText ipEditText;
