@@ -22,11 +22,22 @@
         android:layout_width="fill_parent"
         android:layout_height="130px"
         android:layout_alignParentBottom="true">
-        <EditText
-            android:id="@+id/mainActivity_userIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/editTextHint" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/mainActivity_userIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="@string/editTextHint" />
+            <Button
+                android:id="@+id/mainActivity_sendButt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sendButt"/>
+        </LinearLayout>
     </ScrollView>
 
 </RelativeLayout>

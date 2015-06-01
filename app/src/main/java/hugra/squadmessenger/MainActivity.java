@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,15 +17,16 @@ public class MainActivity extends ActionBarActivity {
     public final static String EXTRA_MESSAGE = "com.hugra.squadmessenger.MESSAGE";
     private static TextView chatOutput;
     private static EditText userIn;
+    private static Button sendButt;
 
-    public void sendMessage(){
+    public void sendMessage(View v){
 //        Intent intent = new Intent(this, DisplayMessageActivity.class);
 //        EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
 //        String message = editText.getText().toString();
 //        intent.putExtra(EXTRA_MESSAGE, message);
 //        startActivity(intent);
-        chatOutput.append(userIn.getText());
-        userIn.getText().clear();
+        chatOutput.append("\n" + userIn.getText());
+        userIn.setText("");
     }
 
 
@@ -34,19 +36,28 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         chatOutput = (TextView) findViewById(R.id.ChatOutput);
         userIn = (EditText) findViewById(R.id.mainActivity_userIn);
-        userIn.setOnKeyListener(new View.OnKeyListener() {
+//        userIn.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (event.getAction() == KeyEvent.ACTION_DOWN){ //on press down <Button>
+//                    switch (keyCode){
+//                        case KeyEvent.KEYCODE_ENTER:
+//                            Log.d("userin", "keyevent.keycode_enter");
+//                            sendMessage();
+//                            return true;
+//                    }
+//                }
+//                return false;
+//            }
+//        });
+        sendButt = (Button) findViewById(R.id.mainActivity_sendButt);
+        sendButt.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN){ //on press down <Button>
-                    switch (keyCode){
-                        case KeyEvent.KEYCODE_ENTER:
-                            Log.d("userin", "keyevent.jeycode_enter");
-                            sendMessage();
-                    }
-                }
-                return false;
+            public void onClick(View v) {
+                sendMessage(v);
             }
         });
+
     }
 
     @Override
