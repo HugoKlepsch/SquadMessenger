@@ -27,6 +27,7 @@ public class ServerInComms extends Thread{
 	}
 	
 	public void run(){
+		ClientMain returnObj = new ClientMain();
 		try {
 			ActionRequest actionRequest;
 			scStream = new ObjectInputStream(scSocket.getInputStream());
@@ -49,7 +50,7 @@ public class ServerInComms extends Thread{
 						//do nothing
 					} else { //if we do not
 						ClientMain.setLocalIndex(actionRequest.getMessage().getIndex(), true);
-						ClientMain.addMessage(actionRequest.getMessage());
+						returnObj.addMessage(actionRequest.getMessage());
 					}
 					
 					

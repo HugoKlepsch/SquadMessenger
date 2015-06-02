@@ -22,7 +22,7 @@ import android.app.Activity;
  * @author hugo
  *
  */
-public class ClientMain {
+public class ClientMain extends Activity{
 	private static BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
 	private static Vector<Boolean> localIndex;
 	private static int remoteIndex = 0;
@@ -42,16 +42,21 @@ public class ClientMain {
 
 	}
 
+	public ClientMain(){ //this one goes out to all those static final califoronia Integers who
+	// don't need no object
+
+	}
+
 	public static void enQueueMessage(String message){
 		messageQueue.enQueue(new Message(creds, message));
 	}
 
-	public static void addMessage(Message message){
+	public void addMessage(final Message message){
 
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				MainActivity.recieveMessage(ClientMain.userMessage);
+				MainActivity.recieveMessage(message);
 				//stuff that updates ui
 
 			}
