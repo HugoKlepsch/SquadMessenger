@@ -51,16 +51,9 @@ public class ClientMain extends Activity{
 		messageQueue.enQueue(new Message(creds, message));
 	}
 
-	public void addMessage(final Message message){
+	public static void addMessage(final Message message){
+		MainActivity.recieveMessage(message);
 
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				MainActivity.recieveMessage(message);
-				//stuff that updates ui
-
-			}
-		});
 
 	}
 
