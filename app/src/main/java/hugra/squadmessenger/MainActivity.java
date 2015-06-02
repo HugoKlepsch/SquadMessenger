@@ -8,7 +8,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
+
+import java.io.IOException;
+
+import hugra.squadmessenger.client.ClientMain;
+import hugra.squadmessenger.sharedPackages.LoginDeets;
+import hugra.squadmessenger.sharedPackages.Message;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,15 +23,24 @@ public class MainActivity extends AppCompatActivity {
     private static TextView chatOutput;
     private static EditText userIn;
     private static Button sendButt;
+    private static ClientMain clientThread;
+    private static ScrollView chatOutScroller;
 
-    public void sendMessage(View v){
+    private static String userName;
+    private static String iPAddress;
+    private static int port;
+
+
+    public static void sendMessage(Message message){
 //        Intent intent = new Intent(this, DisplayMessageActivity.class);
 //        EditText editText = (EditText) findViewById(R.id.mainActivity_editText);
 //        String message = editText.getText().toString();
 //        intent.putExtra(EXTRA_MESSAGE, message);
 //        startActivity(intent);
-        chatOutput.append(userIn.getText() + "\n");
+        chatOutput.append(message.getCredentials().getUserName() + ": " + message.getMessage() +
+                "\n");
         userIn.setText("");
+        chatOutScroller.fullScroll(ScrollView.FOCUS_DOWN);
     }
 
 
@@ -32,29 +48,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.userName = getIntent().getStringExtra("userName");
+        this.iPAddress = getIntent().getStringExtra("iPAddress");
+        this.port = Integer.parseInt(getIntent().getStringExtra("port"));
+
         chatOutput = (TextView) findViewById(R.id.mainActivity_ChatOutput);
         userIn = (EditText) findViewById(R.id.mainActivity_userIn);
-//        userIn.setOnKeyListener(new View.OnKeyListener() {
+
+        sendButt = (Button) findViewById(R.id.mainActivity_sendButt);
+//        sendButt.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (event.getAction() == KeyEvent.ACTION_DOWN){ //on press down <Button>
-//                    switch (keyCode){
-//                        case KeyEvent.KEYCODE_ENTER:
-//                            Log.d("userin", "keyevent.keycode_enter");
-//                            sendMessage();
-//                            return true;
-//                    }
-//                }
-//                return false;
+//            public void onClick(View v) {
+//                sendMessage(v);
 //            }
 //        });
-        sendButt = (Button) findViewById(R.id.mainActivity_sendButt);
-        sendButt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendMessage(v);
-            }
-        });
+        try {
+            clientThread = new ClientMain(userName, iPAddress, port);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        chatOutScroller = (ScrollView) findViewById(R.id.mainActivity_ScrollingTextview);
+        chatOutScroller.setSmoothScrollingEnabled(true);
+
+
 
     }
 

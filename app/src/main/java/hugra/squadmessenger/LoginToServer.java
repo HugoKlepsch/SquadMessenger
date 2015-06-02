@@ -2,7 +2,6 @@ package hugra.squadmessenger;
 
 import android.content.Intent;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -22,10 +21,10 @@ import java.util.regex.Pattern;
 
 
 public class LoginToServer extends AppCompatActivity {
-    EditText loginField;
-    EditText passField;
-    EditText ipEditText;
-    EditText portEditText;
+    private static EditText userNameField;
+    private static EditText passField;
+    private static EditText ipEditText;
+    private static EditText portEditText;
     static ImageView img;
     static TextView pingText;
     static Button loginServerButt;
@@ -34,7 +33,7 @@ public class LoginToServer extends AppCompatActivity {
     boolean hasEnteredPW = false;
     boolean hasEnteredIP = false;
     boolean hasEnteredPort = false;
-    private static final Pattern IP_ADDRESS
+    private static final Pattern IP_ADDRESS_PATTERN
             = Pattern.compile(
             "((25[0-5]|2[0-4][0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9])\\.(25[0-5]|2[0-4]"
                     + "[0-9]|[0-1][0-9]{2}|[1-9][0-9]|[1-9]|0)\\.(25[0-5]|2[0-4][0-9]|[0-1]"
@@ -48,8 +47,8 @@ public class LoginToServer extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_to_server);
-        loginField = (EditText) findViewById(R.id.loginUname);
-        loginField.addTextChangedListener(new TextWatcher() {
+        userNameField = (EditText) findViewById(R.id.loginUname);
+        userNameField.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -103,8 +102,8 @@ public class LoginToServer extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                ipMatcher = IP_ADDRESS.matcher(s.toString()); //takes the given ip from the
-                // edittext and compares it with the IP_ADDRESS regex.
+                ipMatcher = IP_ADDRESS_PATTERN.matcher(s.toString()); //takes the given ip from the
+                // edittext and compares it with the IP_ADDRESS_PATTERN regex.
             }
 
             @Override
@@ -151,6 +150,14 @@ public class LoginToServer extends AppCompatActivity {
         loginServerButt.setEnabled(false);
         pingServerButt = (Button) findViewById(R.id.loginPingButt);
         pingServerButt.setEnabled(false);
+    }
+
+    public void logingSuccess(){
+        //TODO ...
+    }
+
+    public static void loginFailure(){
+        //TODO show message saying that login failed
     }
 
     @Override
@@ -216,10 +223,13 @@ public class LoginToServer extends AppCompatActivity {
     public void login(View view){
 
         pingServer(view);
-        LoginDeets creds = new LoginDeets(loginField.getText().toString(), passField.getText()
-                .toString());
-        Log.d("debug", "in login");
-        Log.d("creds", creds.toString());
+
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("userName", userNameField.getText());
+        intent.putExtra("iPAddress", ipEditText.getText());
+        intent.putExtra("port", portEditText.getText());
+        startActivity(intent);
     }
 }
 

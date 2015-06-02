@@ -25,9 +25,10 @@ public class ServerOutComms extends Thread{
 	private LoginDeets userDeets;
 	private String ipAddress;
 	
-	public ServerOutComms(String ipAddress, LoginDeets userDeets){
+	public ServerOutComms(String ipAddress, LoginDeets userDeets, int port){
 		this.ipAddress = ipAddress;
 		this.userDeets = userDeets;
+		this.port = port;
 	}
 	
 	private void sendMsg(Message message) throws IOException{

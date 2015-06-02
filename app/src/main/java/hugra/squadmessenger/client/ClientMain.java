@@ -11,6 +11,9 @@ package hugra.squadmessenger.client;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import hugra.squadmessenger.LoginToServer;
+import hugra.squadmessenger.MainActivity;
 import hugra.squadmessenger.sharedPackages.*;
 import java.util.Vector;
 
@@ -24,38 +27,27 @@ public class ClientMain {
 	private static Vector<Boolean> localIndex;
 	private static int remoteIndex = 0;
 	private static boolean stayAlive = true;
+	public static LoginDeets creds;
 	public static Queuer<Message> messageQueue;
 	
 
-	public ClientMain() throws IOException {
+	public ClientMain(String userName, String IPAddress, int port) throws IOException {
 		messageQueue = new Queuer<>();
 		localIndex = new Vector<>();
-		System.out.println("Enter username to connect as: ");
-		String userName = userIn.readLine();
-		System.out.println("Enter the IP address to connect to: ");
-		String address = userIn.readLine();
-		LoginDeets creds = new LoginDeets(userName, null);
+
+		creds = new LoginDeets(userName, null);
 		
-		ServerOutComms outComms = new ServerOutComms(address, creds);
+		ServerOutComms outComms = new ServerOutComms(IPAddress, creds, port);
 		outComms.start();
-		
-		System.out.println("Type \"Exit\" to close");
-		String messageContent =  "";
-		Message message;
-		while(!(messageContent.equals("Exit"))){
-			messageContent = userIn.readLine();
-			message = new Message(creds, messageContent);
-			if (!(messageContent.equals("Exit"))) {
-				messageQueue.enQueue(message); 
-			} else {
-				setAlive(false);
-			}
-		}
-	
+
+	}
+
+	public static void enQueueMessage(String message){
+		messageQueue.enQueue(new Message(creds, message));
 	}
 
 	public static void addMessage(Message message){
-//		System.out.println(message.getCredentials().getUserName() + ": " + message.getMessage());
+		MainActivity.sendMessage(message);
 	}
 
 	public static boolean hasMessage(int index) {
