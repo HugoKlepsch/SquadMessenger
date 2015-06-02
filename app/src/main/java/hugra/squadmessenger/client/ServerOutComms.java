@@ -19,7 +19,7 @@ import sharedPackages.*;
  */
 public class ServerOutComms extends Thread{
 	private static int port = 6969;
-	private Socket socket;
+	public Socket socket;
 	public static int loopDelay = 100;
 	private static ObjectOutputStream csStream;
 	private LoginDeets userDeets;
@@ -57,8 +57,8 @@ public class ServerOutComms extends Thread{
 					csStream.flush();
 				}
 			}
-			if(!ClientMain.messageQueue.isEmpty()){
-				sendMsg(ClientMain.messageQueue.deQueue());
+			if(!ClientMain.messageOutQueue.isEmpty()){
+				sendMsg(ClientMain.messageOutQueue.deQueue());
 			}
 			
 		}

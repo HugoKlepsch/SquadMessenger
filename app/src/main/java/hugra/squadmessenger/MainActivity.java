@@ -1,6 +1,7 @@
 package hugra.squadmessenger;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -29,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private static String iPAddress;
     private static int port;
 
+    public static boolean canSpawnCheckMessageThread = true;
+
+
+    public MainActivity(){
+
+    }
 
     public static void sendMessage(View v){
         clientThread.enQueueMessage(userIn.getText().toString());
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void recieveMessage(Message message){
+        canSpawnCheckMessageThread = true;
         chatOutput.append(message.getCredentials().getUserName() + ": " + message.getMessage() +
                 "\n");
 
@@ -73,7 +81,10 @@ public class MainActivity extends AppCompatActivity {
         chatOutScroller = (ScrollView) findViewById(R.id.mainActivity_ScrollingTextview);
         chatOutScroller.setSmoothScrollingEnabled(true);
 
-
+        while (clientThread.outComms.isAlive()){
+            if (canSpawnCheckMessageThread)
+                new UpdateUI().execute();
+        }
 
     }
 
@@ -99,6 +110,29 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+}
+
+class UpdateUI extends AsyncTask<Void, Void, Message> {
+    float pingMilis;
+
+    @Override
+    protected Message doInBackground(Void... params) {
+        MainActivity.canSpawnCheckMessageThread = false;
+        // Runs in background thread
+         //this returns the value to onPostExecute, as a parameter
+        while (ClientMain.messageInQueue.isEmpty()){
+            //busy wait is disgusting but Android + my knowledge level = Shit tier programming
+        }
+        return ClientMain.messageInQueue.deQueue();
+    }
+    @Override
+    protected void onPostExecute(Message params) {
+        MainActivity.recieveMessage(params); //the ui must be updated in the class
+        // that is originated.
+        // runs in UI thread - You may do what you want with
+        // response
+        // Eg Cancel progress dialog - Use result
 
 
+    }
 }

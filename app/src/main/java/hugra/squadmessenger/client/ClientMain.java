@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import hugra.squadmessenger.MainActivity;
 import sharedPackages.*;
 import java.util.Vector;
 import android.app.Activity;
@@ -28,33 +27,31 @@ public class ClientMain extends Activity{
 	private static int remoteIndex = 0;
 	private static boolean stayAlive = true;
 	public static LoginDeets creds;
-	public static Queuer<Message> messageQueue;
+	public static Queuer<Message> messageOutQueue;
+	public static Queuer<Message> messageInQueue;
+	public ServerOutComms outComms;
 	
 
 	public ClientMain(String userName, String IPAddress, int port) throws IOException {
-		messageQueue = new Queuer<>();
+		messageOutQueue = new Queuer<>();
+		messageInQueue = new Queuer<>();
 		localIndex = new Vector<>();
 
 		creds = new LoginDeets(userName, null);
 		
-		ServerOutComms outComms = new ServerOutComms(IPAddress, creds, port);
+		outComms = new ServerOutComms(IPAddress, creds, port);
 		outComms.start();
 
 	}
 
-	public ClientMain(){ //this one goes out to all those static final califoronia Integers who
-	// don't need no object
 
-	}
 
 	public static void enQueueMessage(String message){
-		messageQueue.enQueue(new Message(creds, message));
+		messageOutQueue.enQueue(new Message(creds, message));
 	}
 
 	public static void addMessage(final Message message){
-		MainActivity.recieveMessage(message);
-
-
+		messageInQueue.enQueue(message);
 	}
 
 	public static boolean hasMessage(int index) {

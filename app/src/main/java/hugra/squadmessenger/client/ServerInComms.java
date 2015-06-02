@@ -10,12 +10,12 @@ package hugra.squadmessenger.client;
 
 import android.app.Activity;
 import android.os.Looper;
+import android.widget.ScrollView;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
-import hugra.squadmessenger.MainActivity;
 import sharedPackages.*;
 
 
@@ -55,8 +55,7 @@ public class ServerInComms extends Thread{
 						//do nothing
 					} else { //if we do not
 						ClientMain.setLocalIndex(actionRequest.getMessage().getIndex(), true);
-						new fukU().diks(actionRequest);
-
+						ClientMain.addMessage(actionRequest.getMessage());
 					}
 					
 					
@@ -67,25 +66,5 @@ public class ServerInComms extends Thread{
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-}
-
-
-class fukU extends Activity{
-
-	public fukU(){
-
-	}
-
-	public void diks(final ActionRequest actionRequest){
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				MainActivity.recieveMessage(actionRequest.getMessage());
-//								ClientMain.addMessage(actionRequest.getMessage());
-				//stuff that updates ui
-
-			}
-		});
 	}
 }
