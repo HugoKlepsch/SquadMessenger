@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import hugra.squadmessenger.MainActivity;
 import sharedPackages.*;
 import java.util.Vector;
 import android.app.Activity;
@@ -30,9 +31,11 @@ public class ClientMain extends Activity{
 	public static Queuer<Message> messageOutQueue;
 	public static Queuer<Message> messageInQueue;
 	public ServerOutComms outComms;
+	private static MainActivity activityRef;
 	
 
-	public ClientMain(String userName, String IPAddress, int port) throws IOException {
+	public ClientMain(String userName, String IPAddress, int port, MainActivity activityRef) throws
+			IOException {
 		messageOutQueue = new Queuer<>();
 		messageInQueue = new Queuer<>();
 		localIndex = new Vector<>();
@@ -41,6 +44,7 @@ public class ClientMain extends Activity{
 		
 		outComms = new ServerOutComms(IPAddress, creds, port);
 		outComms.start();
+		this.activityRef = activityRef;
 
 	}
 
@@ -51,7 +55,11 @@ public class ClientMain extends Activity{
 	}
 
 	public static void addMessage(final Message message){
-		messageInQueue.enQueue(message);
+		activityRef.runOnUiThread(new Runnable() {
+			public void run() {
+				MainActivity.recieveMessage(message);
+			}
+		});
 	}
 
 	public static boolean hasMessage(int index) {

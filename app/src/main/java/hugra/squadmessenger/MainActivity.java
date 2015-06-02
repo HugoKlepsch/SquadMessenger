@@ -74,17 +74,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         try {
-            clientThread = new ClientMain(userName, iPAddress, port);
+            clientThread = new ClientMain(userName, iPAddress, port, this);
         } catch (IOException e) {
             e.printStackTrace();
         }
         chatOutScroller = (ScrollView) findViewById(R.id.mainActivity_ScrollingTextview);
         chatOutScroller.setSmoothScrollingEnabled(true);
 
-        while (clientThread.outComms.isAlive()){
-            if (canSpawnCheckMessageThread)
-                new UpdateUI().execute();
-        }
+
 
     }
 
@@ -112,27 +109,27 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 
-class UpdateUI extends AsyncTask<Void, Void, Message> {
-    float pingMilis;
-
-    @Override
-    protected Message doInBackground(Void... params) {
-        MainActivity.canSpawnCheckMessageThread = false;
-        // Runs in background thread
-         //this returns the value to onPostExecute, as a parameter
-        while (ClientMain.messageInQueue.isEmpty()){
-            //busy wait is disgusting but Android + my knowledge level = Shit tier programming
-        }
-        return ClientMain.messageInQueue.deQueue();
-    }
-    @Override
-    protected void onPostExecute(Message params) {
-        MainActivity.recieveMessage(params); //the ui must be updated in the class
-        // that is originated.
-        // runs in UI thread - You may do what you want with
-        // response
-        // Eg Cancel progress dialog - Use result
-
-
-    }
-}
+//class UpdateUI extends AsyncTask<Void, Void, Message> {
+//    float pingMilis;
+//
+//    @Override
+//    protected Message doInBackground(Void... params) {
+//        MainActivity.canSpawnCheckMessageThread = false;
+//        // Runs in background thread
+//         //this returns the value to onPostExecute, as a parameter
+//        while (ClientMain.messageInQueue.isEmpty()){
+//            //busy wait is disgusting but Android + my knowledge level = Shit tier programming
+//        }
+//        return ClientMain.messageInQueue.deQueue();
+//    }
+//    @Override
+//    protected void onPostExecute(Message params) {
+//        MainActivity.recieveMessage(params); //the ui must be updated in the class
+//        // that is originated.
+//        // runs in UI thread - You may do what you want with
+//        // response
+//        // Eg Cancel progress dialog - Use result
+//
+//
+//    }
+//}
