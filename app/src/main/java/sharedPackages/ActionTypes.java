@@ -1,4 +1,4 @@
-package hugra.squadmessenger.sharedPackages;
+package sharedPackages;
 
 public class ActionTypes {
 	public static final int CSGETCURRENTMESSAGEINDEX = 1;

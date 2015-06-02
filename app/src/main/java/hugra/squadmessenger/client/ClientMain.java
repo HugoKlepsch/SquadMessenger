@@ -12,10 +12,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import hugra.squadmessenger.LoginToServer;
 import hugra.squadmessenger.MainActivity;
-import hugra.squadmessenger.sharedPackages.*;
+import sharedPackages.*;
 import java.util.Vector;
+import android.app.Activity;
 
 
 /**
@@ -47,7 +47,16 @@ public class ClientMain {
 	}
 
 	public static void addMessage(Message message){
-		MainActivity.sendMessage(message);
+
+		runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				MainActivity.recieveMessage(ClientMain.userMessage);
+				//stuff that updates ui
+
+			}
+		});
+
 	}
 
 	public static boolean hasMessage(int index) {

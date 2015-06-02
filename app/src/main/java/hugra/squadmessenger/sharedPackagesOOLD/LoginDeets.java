@@ -6,7 +6,7 @@
 */
 
 
-package hugra.squadmessenger.sharedPackages;
+package hugra.squadmessenger.sharedPackagesOOLD;
 
 import java.io.Serializable;
 

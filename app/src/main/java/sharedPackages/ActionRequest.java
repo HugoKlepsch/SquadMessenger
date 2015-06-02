@@ -1,4 +1,4 @@
-package hugra.squadmessenger.sharedPackages;
+package sharedPackages;
 
 import java.io.Serializable;
 

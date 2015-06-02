@@ -226,9 +226,9 @@ public class LoginToServer extends AppCompatActivity {
 
 
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("userName", userNameField.getText());
-        intent.putExtra("iPAddress", ipEditText.getText());
-        intent.putExtra("port", portEditText.getText());
+        intent.putExtra("userName", userNameField.getText().toString());
+        intent.putExtra("iPAddress", ipEditText.getText().toString());
+        intent.putExtra("port", portEditText.getText().toString());
         startActivity(intent);
     }
 }
