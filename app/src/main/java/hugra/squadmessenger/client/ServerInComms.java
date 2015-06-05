@@ -57,7 +57,10 @@ public class ServerInComms extends Thread{
 					}
 					
 					
-				} //TODO ADD CONNECTED USERS OPTION
+				} else if(actionRequest.getAction() == ActionTypes.SCSENDUSERS){
+
+
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -8,5 +8,7 @@ public class ActionTypes {
 	public static final int CSCONNECT = 5;
 	public static final int SCSENDCURRENTMESSAGEINDEX = 6;
 	public static final int SCSENDMESSAGE = 7;
+	public static final int CSPING = 8;
+	public static final int SCSENDUSERS = 9;
 
 }
