@@ -175,10 +175,7 @@ public class LoginToServer extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.loginToMain) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.appInfo) {
+        if (id == R.id.appInfo) {
             startActivity(new Intent(this, AppInfo.class));
         }
 
@@ -201,8 +198,7 @@ public class LoginToServer extends AppCompatActivity {
     public void pingServer(View view){
         img.setImageResource(R.drawable.ping_loading);
         Log.d("debug", "in pingServer");
-        TestConnectivity runer = new TestConnectivity();
-        runer.execute(String.valueOf(ipEditText.getText()));
+        new TestConnectivity().execute(String.valueOf(ipEditText.getText()));
     }
 
     public static void updateConnectivityStatus(float ping){
@@ -228,7 +224,11 @@ public class LoginToServer extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("userName", userNameField.getText().toString());
         intent.putExtra("iPAddress", ipEditText.getText().toString());
-        intent.putExtra("port", portEditText.getText().toString());
+        if(portEditText.getText().toString().equals("")){
+            intent.putExtra("port", "6969");
+        } else {
+            intent.putExtra("port", portEditText.getText().toString());
+        }
         startActivity(intent);
     }
 }

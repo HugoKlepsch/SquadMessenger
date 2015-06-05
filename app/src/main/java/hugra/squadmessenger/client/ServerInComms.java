@@ -8,9 +8,7 @@
 
 package hugra.squadmessenger.client;
 
-import android.app.Activity;
-import android.os.Looper;
-import android.widget.ScrollView;
+
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -59,7 +57,7 @@ public class ServerInComms extends Thread{
 					}
 					
 					
-				}
+				} //TODO ADD CONNECTED USERS OPTION
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

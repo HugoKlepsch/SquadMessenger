@@ -8,9 +8,7 @@
 
 package hugra.squadmessenger.client;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 import hugra.squadmessenger.MainActivity;
 import sharedPackages.*;
@@ -23,13 +21,12 @@ import android.app.Activity;
  *
  */
 public class ClientMain extends Activity{
-	private static BufferedReader userIn = new BufferedReader(new InputStreamReader(System.in));
 	private static Vector<Boolean> localIndex;
 	private static int remoteIndex = 0;
 	private static boolean stayAlive = true;
 	public static LoginDeets creds;
 	public static Queuer<Message> messageOutQueue;
-	public static Queuer<Message> messageInQueue;
+
 	public ServerOutComms outComms;
 	private static MainActivity activityRef;
 	
@@ -37,7 +34,6 @@ public class ClientMain extends Activity{
 	public ClientMain(String userName, String IPAddress, int port, MainActivity activityRef) throws
 			IOException {
 		messageOutQueue = new Queuer<>();
-		messageInQueue = new Queuer<>();
 		localIndex = new Vector<>();
 
 		creds = new LoginDeets(userName, null);

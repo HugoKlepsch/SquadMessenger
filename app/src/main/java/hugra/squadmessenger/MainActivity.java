@@ -1,9 +1,11 @@
 package hugra.squadmessenger;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,10 +35,6 @@ public class MainActivity extends AppCompatActivity {
     public static boolean canSpawnCheckMessageThread = true;
 
 
-    public MainActivity(){
-
-    }
-
     public static void sendMessage(View v){
         clientThread.enQueueMessage(userIn.getText().toString());
         userIn.setText("");
@@ -59,9 +57,10 @@ public class MainActivity extends AppCompatActivity {
         this.userName = bundle.getString("userName");
         this.iPAddress = bundle.getString("iPAddress");
         this.port = Integer.parseInt(bundle.getString("port"));
-//        Log.d("MainActivity creds", "userName = " + userName);
-//        Log.d("MainActivity creds", "ip = " + iPAddress);
-//        Log.d("MainActivity creds", "port = " + bundle.getString("port"));
+        for (int i = 0; i < 10; i++){
+            Log.d("Dongbud", "in onCreate " + i);
+        }
+
 
         chatOutput = (TextView) findViewById(R.id.mainActivity_ChatOutput);
         userIn = (EditText) findViewById(R.id.mainActivity_userIn);
@@ -100,36 +99,26 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.appInfo) {
-            Intent intent = new Intent(this, AppInfo.class);
-            startActivity(intent);
+
+        switch (id){
+            case R.id.appInfo:
+                Intent intent = new Intent(this, AppInfo.class);
+                startActivity(intent);
+                break;
+            case R.id.logOut:
+                ClientMain.setAlive(false);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                this.finish();
+                System.exit(1);
+                break;
         }
+
 
         return super.onOptionsItemSelected(item);
     }
 }
-
-//class UpdateUI extends AsyncTask<Void, Void, Message> {
-//    float pingMilis;
-//
-//    @Override
-//    protected Message doInBackground(Void... params) {
-//        MainActivity.canSpawnCheckMessageThread = false;
-//        // Runs in background thread
-//         //this returns the value to onPostExecute, as a parameter
-//        while (ClientMain.messageInQueue.isEmpty()){
-//            //busy wait is disgusting but Android + my knowledge level = Shit tier programming
-//        }
-//        return ClientMain.messageInQueue.deQueue();
-//    }
-//    @Override
-//    protected void onPostExecute(Message params) {
-//        MainActivity.recieveMessage(params); //the ui must be updated in the class
-//        // that is originated.
-//        // runs in UI thread - You may do what you want with
-//        // response
-//        // Eg Cancel progress dialog - Use result
-//
-//
-//    }
-//}

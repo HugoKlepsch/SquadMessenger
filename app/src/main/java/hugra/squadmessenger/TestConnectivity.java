@@ -64,7 +64,7 @@ public class TestConnectivity extends AsyncTask<String, Void, String> {
                 str = output.toString();
             }
 
-            process.destroy();
+//            process.destroy();
         } catch (IOException e) {
             e.printStackTrace();
         }
