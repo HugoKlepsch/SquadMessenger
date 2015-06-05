@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 
+import hugra.squadmessenger.MainActivity;
 import sharedPackages.*;
 
 
@@ -58,7 +59,7 @@ public class ServerInComms extends Thread{
 					
 					
 				} else if(actionRequest.getAction() == ActionTypes.SCSENDUSERS){
-
+					MainActivity.users = actionRequest.getUsers();
 
 				}
 			}

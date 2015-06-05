@@ -15,6 +15,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.Vector;
 
 import hugra.squadmessenger.client.ClientMain;
 import sharedPackages.Message;
@@ -33,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private static int port;
 
     public static boolean canSpawnCheckMessageThread = true;
+
+    public static Vector<String> users;
 
 
     public static void sendMessage(View v){

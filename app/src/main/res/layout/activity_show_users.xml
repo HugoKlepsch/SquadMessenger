@@ -8,8 +8,19 @@
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 tools:context="hugra.squadmessenger.ShowUsers">
 
-    <TextView
+
+    <ScrollView
+        android:id="@+id/ShowUsers_ScrollingTextview"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"/>
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:fillViewport="true"
+        android:layout_alignParentTop="true">
+        <TextView
+            android:id="@+id/ShowUsers_Users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
 
 </RelativeLayout>
