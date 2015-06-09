@@ -25,6 +25,10 @@ public class LoginToServer extends AppCompatActivity {
     private static EditText passField;
     private static EditText ipEditText;
     private static EditText portEditText;
+    public static String userName;
+    public static String password;
+    public static String iPAddress;
+    public static String port;
     static ImageView img;
     static TextView pingText;
     static Button loginServerButt;
@@ -229,6 +233,17 @@ public class LoginToServer extends AppCompatActivity {
         } else {
             intent.putExtra("port", portEditText.getText().toString());
         }
+
+
+        this.userName = userNameField.getText().toString();
+//        this.password = passField.getText().toString();
+        this.iPAddress = ipEditText.getText().toString();
+        if(portEditText.getText().toString().equals("")){
+            this.port = "6969";
+        } else {
+            this.port = portEditText.getText().toString();
+        }
+
         startActivity(intent);
     }
 }

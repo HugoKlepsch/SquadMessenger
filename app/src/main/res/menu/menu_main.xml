@@ -2,6 +2,10 @@
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
       tools:context=".MainActivity">
+      <item android:id="@+id/ShowUsers"
+            android:title="@string/mainActivity_ShowUsersMenu"
+            android:orderInCategory="90"
+            app:showAsAction="never"/>
     <item android:id="@+id/appInfo"
           android:title="@string/appInfo"
           android:orderInCategory="100"

@@ -56,13 +56,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Bundle bundle = getIntent().getExtras();
-        this.userName = bundle.getString("userName");
-        this.iPAddress = bundle.getString("iPAddress");
-        this.port = Integer.parseInt(bundle.getString("port"));
-        for (int i = 0; i < 10; i++){
-            Log.d("Dongbud", "in onCreate " + i);
-        }
+//        Bundle bundle = getIntent().getExtras();
+//        this.userName = bundle.getString("userName");
+//        this.iPAddress = bundle.getString("iPAddress");
+//        this.port = Integer.parseInt(bundle.getString("port"));
+//        for (int i = 0; i < 10; i++){
+//            Log.d("Dongbud", "in onCreate " + i);
+//        }
+        this.userName = LoginToServer.userName;
+        this.iPAddress = LoginToServer.iPAddress;
+        this.port = Integer.parseInt(LoginToServer.port);
 
 
         chatOutput = (TextView) findViewById(R.id.mainActivity_ChatOutput);
@@ -88,6 +91,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d("Activity", "onResume");
+    }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.d("Activity", "onStart");
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -107,6 +122,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.appInfo:
                 Intent intent = new Intent(this, AppInfo.class);
                 startActivity(intent);
+                break;
+            case R.id.ShowUsers:
+                startActivity(new Intent(this, ShowUsers.class));
                 break;
             case R.id.logOut:
                 ClientMain.setAlive(false);

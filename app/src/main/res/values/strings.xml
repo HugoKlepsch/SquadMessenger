@@ -15,4 +15,5 @@
     <string name="sendButt">Send</string>
     <string name="logout">Logout</string>
     <string name="title_activity_show_users">ShowUsers</string>
+    <string name="mainActivity_ShowUsersMenu">Connected Users</string>
 </resources>
