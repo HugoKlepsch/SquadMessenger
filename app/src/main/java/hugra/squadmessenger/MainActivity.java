@@ -1,5 +1,6 @@
 package hugra.squadmessenger;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -55,14 +56,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false); // remove the left caret
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false); // disable the button
 
-//        Bundle bundle = getIntent().getExtras();
-//        this.userName = bundle.getString("userName");
-//        this.iPAddress = bundle.getString("iPAddress");
-//        this.port = Integer.parseInt(bundle.getString("port"));
-//        for (int i = 0; i < 10; i++){
-//            Log.d("Dongbud", "in onCreate " + i);
-//        }
+            actionBar.setDisplayShowHomeEnabled(false); // remove the icon
+        }
         this.userName = LoginToServer.userName;
         this.iPAddress = LoginToServer.iPAddress;
         this.port = Integer.parseInt(LoginToServer.port);

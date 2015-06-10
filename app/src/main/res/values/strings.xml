@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Squad Messenger</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="appInfo_Names">Squad Messenger was conceived and created by Hugo Klepsch
+        and Graham Hildebrandt. \n \n The android version was ported by Hugo Klepsch. \n \n
+        Licenced under GPL</string>
     <string name="appInfo">App Info</string>
     <string name="editTextHint">Enter your message here!</string>
     <string name="closeButt">Close</string>

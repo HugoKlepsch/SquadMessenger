@@ -11,17 +11,11 @@
 
     <TextView
         android:id="@+id/appInfoMainTopLabel"
-        android:textSize="36dp"
-        android:text="@string/hello_world"
+        android:textSize="18sp"
+        android:text="@string/appInfo_Names"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"/>
-    <Button
-        android:id="@+id/gravityButt"
-        android:text="@string/gravityButt"
-        style="@android:style/Widget.Material.Light.Button.Borderless.Small"
-        android:onClick="changeGravity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
 
 </LinearLayout>

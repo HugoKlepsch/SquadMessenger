@@ -1,7 +1,9 @@
 package hugra.squadmessenger;
 
+import android.app.ActionBar;
 import android.content.Intent;
 
+import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -51,6 +53,13 @@ public class LoginToServer extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_to_server);
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false); // remove the left caret
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false); // disable the button
+
+            actionBar.setDisplayShowHomeEnabled(false); // remove the icon
+        }
         userNameField = (EditText) findViewById(R.id.loginUname);
         userNameField.addTextChangedListener(new TextWatcher() {
             @Override
@@ -74,30 +83,10 @@ public class LoginToServer extends AppCompatActivity {
 
             }
         });
-//        passField = (EditText) findViewById(R.id.loginPW);
-//        passField.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                if(!(s.toString().equals(""))){ //if it is not empty string
-//                    hasEnteredPW = true;
-//                    updateButtons();
-//                } else {
-//                    hasEnteredPW = false;
-//                    updateButtons();
-//                }
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//
-//            }
-//        });
+
         ipEditText = (EditText) findViewById(R.id.loginIP);
+        final ColorStateList normalColour = ipEditText.getTextColors();
+
         ipEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -113,12 +102,10 @@ public class LoginToServer extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (ipMatcher.matches()) { //if it is a valid ip
-//                    ipEditText.setAlpha((float) 1.0);
-                    ipEditText.setTextColor(getResources().getColor(R.color.goodIPColor));
+                    ipEditText.setTextColor(normalColour.getDefaultColor());
                     hasEnteredIP = true;
                     updateButtons();
                 } else { //if not
-//                    ipEditText.setAlpha((float) 0.5);
                     ipEditText.setTextColor(getResources().getColor(R.color.badIPColor));
                     hasEnteredIP = false;
                     updateButtons();

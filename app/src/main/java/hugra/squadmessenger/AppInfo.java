@@ -1,5 +1,6 @@
 package hugra.squadmessenger;
 
+import android.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,22 +17,6 @@ public class AppInfo extends AppCompatActivity {
     private int gravState;
 
 
-    public void changeGravity(View v){
-        switch (gravState){
-            case leftJust:
-                gravState = centerJust;
-                welcomeText.setGravity(gravState);
-                break;
-            case centerJust:
-                gravState = rightJust;
-                welcomeText.setGravity(gravState);
-                break;
-            case rightJust:
-                gravState = leftJust;
-                welcomeText.setGravity(gravState);
-                break;
-        }
-    }
 
 
 
@@ -39,8 +24,13 @@ public class AppInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_info);
-        welcomeText = (TextView) findViewById(R.id.appInfoMainTopLabel);
-        gravState = welcomeText.getGravity();
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(false); // remove the left caret
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(false); // disable the button
+
+            actionBar.setDisplayShowHomeEnabled(false); // remove the icon
+        }
     }
 
 

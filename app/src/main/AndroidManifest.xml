@@ -30,14 +30,6 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".DisplayMessageActivity"
-            android:label="@string/title_activity_display_message"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="hugra.squadmessenger.MainActivity" />
-        </activity>
-        <activity
             android:name=".AppInfo"
             android:label="@string/title_activity_app_info"
             android:parentActivityName=".MainActivity" >
