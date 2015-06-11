@@ -37,8 +37,8 @@ public class ShowUsers extends AppCompatActivity {
         users.setText("Users: \n"); //add each user to the screen
         for (int i = 0; i < userList.size(); i ++){
             users.setText(users.getText() + userList.get(i) + "\n");
-        }
 
+        }
     }
 
 
