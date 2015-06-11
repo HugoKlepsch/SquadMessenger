@@ -40,7 +40,9 @@ public class ClientMain extends Activity{
 		
 		outComms = new ServerOutComms(IPAddress, creds, port);
 		outComms.start();
-		this.activityRef = activityRef;
+		this.activityRef = activityRef; //takes in the object of the MainActivity activity so
+		// that we have a way to access the thread that created the UI elements. This concept is
+		// explained further in MainActivity when we create the ClientMain object.
 
 	}
 

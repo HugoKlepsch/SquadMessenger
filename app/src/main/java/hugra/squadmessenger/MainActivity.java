@@ -91,7 +91,14 @@ public class MainActivity extends AppCompatActivity {
             clientThread = new ClientMain(userName, iPAddress, port, this); //makes a new object
             // of the messages backend. THis object runs in the background and handles
             // interaction with the server. It's modularity helped making porting the app much
-            // easier
+            // easier.
+            //Important to note: it passes an instance of the MainActivity activity object so
+            // that when a new message is recieved, the client object can manipulate the UI
+            // elements that are created in MainActivity. This was a major blocking point in our
+            // programing, causing much delay and frustration because only the thread that
+            // creates the UI elements (loads them from xml) can manipulate them, an no, calling
+            // a static function in the MainActivity class does not run on the UI thread, infact
+            // it runs on the thread that you called it from .
         } catch (IOException e) {
             e.printStackTrace();
         }
