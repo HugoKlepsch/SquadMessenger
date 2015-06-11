@@ -5,6 +5,7 @@
     <!-- To access Google+ APIs: -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-sdk android:minSdkVersion="21"/>
 
     <!--
  To retrieve OAuth 2.0 tokens or invalidate tokens to disconnect a user. This disconnect

@@ -1,9 +1,16 @@
+/*
+		 Title: MainActivity.java
+		 Programmer: hugo
+		 Date of creation: June 5, 2015
+		 Description: The class/thread that describes the MainActivity, where the chat window
+		 displays messages
+*/
+
 package hugra.squadmessenger;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;

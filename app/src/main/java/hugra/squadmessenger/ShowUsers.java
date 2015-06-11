@@ -1,15 +1,17 @@
+/*
+		 Title: ShowUsers.java
+		 Programmer: hugo
+		 Date of creation: June 1, 2015
+		 Description: This is a simple activity that only shows a small list of connected users,
+		 it does not update ever, but this could be a future improvement
+ */
+
 package hugra.squadmessenger;
 
-import android.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
 import java.util.Vector;
 
 
